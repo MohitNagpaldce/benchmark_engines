@@ -10,7 +10,7 @@ This checklist tracks the repository and manuscript items needed before submitti
 - [x] README with installation, execution, metrics, and workload documentation
 - [x] Citation metadata in `CITATION.cff`
 - [x] Changelog for versioned release
-- [ ] GitHub release `v1.0.0`
+- [x] GitHub release `v1.0.0`
 - [ ] Optional DOI archive through Zenodo or another repository
 
 ## Manuscript
