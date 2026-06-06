@@ -1,0 +1,55 @@
+{
+  "name": "benchmark_low_latency",
+  "description": "Low-latency benchmark workflow template for Conductor.",
+  "version": 1,
+  "schemaVersion": 2,
+  "ownerEmail": "benchmark@example.com",
+  "timeoutPolicy": "TIME_OUT_WF",
+  "timeoutSeconds": 300,
+  "tasks": [
+    {
+      "name": "benchmark_mock_rpc",
+      "taskReferenceName": "validate_request",
+      "type": "SIMPLE",
+      "inputParameters": {
+        "stepName": "validate_request",
+        "latencyMs": "${workflow.input.activityLatencyMs}",
+        "payloadBytes": "${workflow.input.payloadBytes}"
+      }
+    },
+    {
+      "name": "benchmark_mock_rpc",
+      "taskReferenceName": "authorize_payment",
+      "type": "SIMPLE",
+      "inputParameters": {
+        "stepName": "authorize_payment",
+        "latencyMs": "${workflow.input.activityLatencyMs}",
+        "payloadBytes": "${workflow.input.payloadBytes}"
+      }
+    },
+    {
+      "name": "benchmark_mock_rpc",
+      "taskReferenceName": "check_inventory",
+      "type": "SIMPLE",
+      "inputParameters": {
+        "stepName": "check_inventory",
+        "latencyMs": "${workflow.input.activityLatencyMs}",
+        "payloadBytes": "${workflow.input.payloadBytes}"
+      }
+    },
+    {
+      "name": "benchmark_mock_rpc",
+      "taskReferenceName": "confirm_transaction",
+      "type": "SIMPLE",
+      "inputParameters": {
+        "stepName": "confirm_transaction",
+        "latencyMs": "${workflow.input.activityLatencyMs}",
+        "payloadBytes": "${workflow.input.payloadBytes}"
+      }
+    }
+  ],
+  "inputParameters": [
+    "activityLatencyMs",
+    "payloadBytes"
+  ]
+}

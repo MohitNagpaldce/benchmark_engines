@@ -1,0 +1,28 @@
+{
+  "name": "workflow-orchestration-benchmarks",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Benchmark harness for workflow orchestration engines, starting with Temporal.",
+  "scripts": {
+    "temporal:up": "docker compose -f docker-compose.temporal.yml up -d",
+    "temporal:down": "docker compose -f docker-compose.temporal.yml down",
+    "temporal:worker": "tsx src/engines/temporal/worker.ts",
+    "temporal:bench": "tsx src/runner.ts --engine temporal",
+    "conductor:up": "docker compose -f docker-compose.conductor.yml up -d",
+    "conductor:down": "docker compose -f docker-compose.conductor.yml down",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@temporalio/activity": "^1.12.1",
+    "@temporalio/client": "^1.12.1",
+    "@temporalio/common": "^1.12.1",
+    "@temporalio/worker": "^1.12.1",
+    "@temporalio/workflow": "^1.12.1",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

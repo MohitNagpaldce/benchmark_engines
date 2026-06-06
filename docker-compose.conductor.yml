@@ -1,0 +1,12 @@
+services:
+  conductor:
+    image: conductoross/conductor:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - CONDUCTOR_SERVER_URL=http://localhost:8080/api
+    volumes:
+      - conductor-data:/app/data
+
+volumes:
+  conductor-data:
