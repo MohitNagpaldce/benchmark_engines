@@ -1,8 +1,13 @@
 {
   "name": "workflow-orchestration-benchmarks",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Benchmark harness for workflow orchestration engines, starting with Temporal.",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Open-source benchmark harness for comparing Temporal, Conductor, and Airflow workflow orchestration workloads.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MohitNagpaldce/benchmark_engines.git"
+  },
+  "license": "GPL-3.0-only",
   "scripts": {
     "temporal:up": "docker-compose -f docker-compose.temporal.yml up -d",
     "temporal:down": "docker-compose -f docker-compose.temporal.yml down",

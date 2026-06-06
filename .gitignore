@@ -1,8 +1,14 @@
 node_modules/
 dist/
 results/
+work/
 .DS_Store
 npm-debug.log*
 __pycache__/
 *.py[cod]
 outputs/workflow-orchestration-engines-research-paper.md
+outputs/workflow-orchestration-engines-research-paper.docx
+outputs/workflow-orchestration-engines-research-paper-gdocs.docx
+outputs/softwarex-*.docx
+outputs/softwarex-*.pdf
+outputs/softwarex-cover-letter-draft.md

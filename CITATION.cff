@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this benchmark framework, please cite it using this metadata."
+title: "Workflow Orchestration Benchmarks"
+version: "1.0.0"
+date-released: "2026-06-06"
+repository-code: "https://github.com/MohitNagpaldce/benchmark_engines"
+url: "https://github.com/MohitNagpaldce/benchmark_engines"
+license: "GPL-3.0-only"
+authors:
+  - family-names: "Nagpal"
+    given-names: "Mohit"
+abstract: "A TypeScript benchmark harness for comparing workflow orchestration engines across representative distributed-system workloads, including low-latency execution, fan-out/fan-in, deep sequential workflows, timers, retries, and failure-recovery baselines."
+keywords:
+  - workflow orchestration
+  - Temporal
+  - Conductor
+  - Airflow
+  - benchmarking
+  - distributed systems

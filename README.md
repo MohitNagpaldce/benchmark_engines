@@ -1,9 +1,60 @@
 # Workflow Orchestration Benchmarks
 
-This repository is the implementation starting point for benchmarking workflow orchestration engines under realistic workload shapes.
+This repository contains an open-source benchmark harness for comparing workflow orchestration engines under representative distributed-system workload shapes.
 
-The first implemented engine is Temporal. Netflix Conductor is the next adapter target.
-Conductor support is implemented through its REST API and an external task worker, but it still needs a live Conductor server to collect results.
+Implemented engines:
+
+- Temporal, through the Temporal TypeScript SDK and local development server.
+- Conductor OSS, through REST workflow definitions and an external TypeScript task worker.
+- Apache Airflow, through static DAGs and the stable REST API.
+
+The harness normalizes result files across engines so each run reports workflow success, wall-clock duration, throughput, P50/P95/P99 latency, activity/task counts, and timer counts where applicable.
+
+## Repository Layout
+
+```text
+src/
+  engines/
+    temporal/     Temporal workflows, activities, and worker
+    conductor/    Conductor REST client, workflow definitions, and worker
+    airflow/      Airflow REST client and benchmark definitions
+  problems.ts     Shared workload definitions
+  runner.ts       Benchmark runner CLI
+  metrics.ts      Prometheus metric exports
+airflow/dags/     Airflow DAG definitions
+observability/    Prometheus and Grafana provisioning
+outputs/          Human-readable benchmark reports
+```
+
+## Quick Start
+
+Install Node dependencies:
+
+```bash
+npm install
+```
+
+Type-check the project:
+
+```bash
+npm run typecheck
+```
+
+Start the desired engine stack, start any required worker, then run the benchmark command for that engine. Result JSON files are written under `results/`.
+
+## Workloads
+
+The same seven workload definitions are used across supported engines:
+
+| Workload | Purpose |
+| --- | --- |
+| `low-latency` | Baseline request-style orchestration with short sequential RPC-like steps. |
+| `high-throughput` | Fan-out/fan-in workload with many parallel tasks and an aggregate step. |
+| `deep-sequential` | Long ordered workflow with 50 sequential steps. |
+| `long-running` | Work, durable wait/timer, then resumed work. |
+| `retry-heavy` | Transient task failures with retry policy enabled. |
+| `timer-intensive` | Ten sequential timer/wait steps. |
+| `failure-recovery` | Recovery-shaped baseline with a long wait and post-wait continuation; crash injection is not yet included. |
 
 ## Temporal Local Setup
 
@@ -190,3 +241,13 @@ The Airflow adapter triggers DAG runs through the stable REST API and writes the
 ## Current Limitation
 
 Docker is required to run Conductor locally through the provided Compose file. Temporal can also run through Docker, but the Temporal CLI dev server works without Docker.
+
+The published reports under `outputs/` include local pilot measurements and a deterministic 1000-execution bootstrap-style simulation. The simulation resamples observed benchmark samples and should not be interpreted as a full live 1000-workflow execution against every engine. For publication-grade claims, run a fresh live benchmark suite on a fixed host or cluster and archive the raw `results/` files.
+
+## Citation
+
+Citation metadata is provided in `CITATION.cff`.
+
+## License
+
+This project is released under the GPL-3.0-only license. See `LICENSE`.
