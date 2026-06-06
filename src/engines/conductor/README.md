@@ -16,17 +16,41 @@ Expected local API:
 
 Docker is not installed in this Codex environment, so this has not been started here.
 
+## Local Run Commands
+
+Start Conductor:
+
+```bash
+npm run conductor:up
+```
+
+Start the external task worker:
+
+```bash
+npm run conductor:worker
+```
+
+Run a benchmark:
+
+```bash
+npm run conductor:bench -- --problem low-latency --total 100 --concurrency 10
+```
+
+The Conductor runner emits the same JSON result schema and Prometheus benchmark metrics as the Temporal runner.
+
 ## Adapter Shape
 
-The Conductor implementation should reuse the shared problem definitions in `src/problems.ts`.
+The Conductor implementation reuses the shared problem definitions in `src/problems.ts`.
 
-Planned pieces:
+Implemented pieces:
 
-- Register workflow definitions for each benchmark problem.
-- Register task definitions for mock RPC tasks.
-- Start workflow executions through the Conductor REST API.
-- Run a polling worker loop for `SIMPLE` tasks.
-- Normalize Conductor run results into the same `BenchmarkResultFile` schema used by Temporal.
+- Dynamic workflow definitions for each benchmark problem.
+- External task worker for `benchmark_mock_rpc` and `benchmark_retry_rpc`.
+- Workflow execution through the Conductor REST API.
+- Normalized `BenchmarkResultFile` JSON output.
+- Shared benchmark Prometheus metrics.
+
+The adapter uses dynamic workflow start requests instead of pre-registering static workflow definitions. This keeps the benchmark parameters colocated with the run and avoids stale metadata between runs.
 
 ## Problem Mapping
 
@@ -66,9 +90,8 @@ Start active workflows, stop task workers, restart them, then measure completion
 
 ## Next Implementation Steps
 
-1. Confirm the local Conductor image API paths and UI behavior.
-2. Add a `ConductorClient` wrapper around REST calls.
-3. Add task and workflow definition registration.
-4. Implement the mock RPC task worker.
-5. Add `--engine conductor` support in `src/runner.ts`.
-6. Run parity tests for `low-latency` and `deep-sequential` before implementing fan-out and timer cases.
+1. Run the adapter against a live Conductor server.
+2. Validate the OSS image endpoint paths and UI behavior.
+3. Tune Conductor worker polling count and benchmark concurrency.
+4. Add controlled worker-stop/restart automation for the failure-recovery scenario.
+5. Generate the Conductor performance report next to the Temporal report.

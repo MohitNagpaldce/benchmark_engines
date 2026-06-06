@@ -3,6 +3,7 @@
 This repository is the implementation starting point for benchmarking workflow orchestration engines under realistic workload shapes.
 
 The first implemented engine is Temporal. Netflix Conductor is the next adapter target.
+Conductor support is implemented through its REST API and an external task worker, but it still needs a live Conductor server to collect results.
 
 ## Temporal Local Setup
 
@@ -134,6 +135,32 @@ Temporal worker SDK metrics are exposed with the `temporal_` prefix from the Typ
 - `timer-intensive`: timer scheduling accuracy test
 - `failure-recovery`: active workflow recovery after worker restart
 
+## Conductor Local Setup
+
+Conductor is configured through `docker-compose.conductor.yml`.
+
+```bash
+npm run conductor:up
+```
+
+Conductor endpoint:
+
+- API: `http://localhost:8080/api`
+
+Start the Conductor external task worker in one terminal:
+
+```bash
+npm run conductor:worker
+```
+
+Run the same benchmark cases with the Conductor adapter:
+
+```bash
+npm run conductor:bench -- --problem low-latency --total 100 --concurrency 10
+```
+
+The Conductor adapter uses dynamic workflow definitions and polls `SIMPLE` tasks through the Conductor Task API. It writes the same JSON schema as Temporal, so the results can be compared directly.
+
 ## Current Limitation
 
-Docker is required to run Temporal locally. This Codex environment does not currently have `docker` installed, so the implementation can be type-checked here but the Temporal server cannot be started from this session.
+Docker is required to run Conductor locally through the provided Compose file. Temporal can also run through Docker, but the Temporal CLI dev server works without Docker.

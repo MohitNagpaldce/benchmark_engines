@@ -28,6 +28,7 @@ export interface BenchmarkRunOptions {
   temporalAddress: string;
   taskQueue: string;
   namespace: string;
+  conductorUrl: string;
   resultsDir: string;
   metricsPort: number;
   metricsHoldMs: number;
