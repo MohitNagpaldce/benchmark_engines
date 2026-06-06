@@ -16,6 +16,9 @@
     "conductor:down": "docker-compose -f docker-compose.conductor.yml down",
     "conductor:worker": "tsx src/engines/conductor/worker.ts",
     "conductor:bench": "tsx src/runner.ts --engine conductor",
+    "airflow:up": "docker-compose -f docker-compose.airflow.yml up -d",
+    "airflow:down": "docker-compose -f docker-compose.airflow.yml down",
+    "airflow:bench": "tsx src/runner.ts --engine airflow",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

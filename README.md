@@ -161,6 +161,32 @@ npm run conductor:bench -- --problem low-latency --total 100 --concurrency 10
 
 The Conductor adapter uses dynamic workflow definitions and polls `SIMPLE` tasks through the Conductor Task API. It writes the same JSON schema as Temporal, so the results can be compared directly.
 
+## Airflow Local Setup
+
+Airflow is configured through `docker-compose.airflow.yml` using Apache Airflow 2.10.4 with `LocalExecutor`.
+
+```bash
+npm run airflow:up
+```
+
+Airflow endpoints:
+
+- UI: `http://localhost:8081`
+- Stable REST API: `http://localhost:8081/api/v1`
+
+Default credentials:
+
+- Username: `airflow`
+- Password: `airflow`
+
+Run the same benchmark cases with the Airflow adapter:
+
+```bash
+npm run airflow:bench -- --problem low-latency --total 5 --concurrency 5
+```
+
+The Airflow adapter triggers DAG runs through the stable REST API and writes the same JSON result schema as Temporal and Conductor.
+
 ## Current Limitation
 
 Docker is required to run Conductor locally through the provided Compose file. Temporal can also run through Docker, but the Temporal CLI dev server works without Docker.

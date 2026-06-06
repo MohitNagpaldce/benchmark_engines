@@ -3,6 +3,11 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { Command, InvalidArgumentError } from "commander";
 import { Connection, Client } from "@temporalio/client";
+import { AirflowClient, type AirflowDagRunState } from "./engines/airflow/client";
+import {
+  airflowDagId,
+  expectedAirflowResult
+} from "./engines/airflow/definitions";
 import { ConductorClient, type ConductorWorkflowStatus } from "./engines/conductor/client";
 import {
   buildConductorStartRequest,
@@ -257,6 +262,114 @@ async function runConductorBenchmark(options: BenchmarkRunOptions): Promise<Benc
   return result;
 }
 
+function isTerminalAirflowState(state: AirflowDagRunState): boolean {
+  return state === "success" || state === "failed";
+}
+
+async function waitForAirflowDagRun(
+  client: AirflowClient,
+  dagId: string,
+  dagRunId: string,
+  timeoutMs: number
+): Promise<AirflowDagRunState> {
+  const deadline = Date.now() + timeoutMs;
+  for (;;) {
+    const dagRun = await client.getDagRun(dagId, dagRunId);
+    if (isTerminalAirflowState(dagRun.state)) {
+      return dagRun.state;
+    }
+    if (Date.now() > deadline) {
+      throw new Error(`Timed out waiting for Airflow DAG run ${dagRunId}`);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
+}
+
+async function runAirflowBenchmark(options: BenchmarkRunOptions): Promise<BenchmarkResultFile> {
+  const problem = getProblemDefinition(options.problem);
+  const runId = randomUUID();
+  const client = new AirflowClient(options.airflowUrl, options.airflowUsername, options.airflowPassword);
+  await client.health();
+  const dagId = airflowDagId(problem);
+  await client.unpauseDag(dagId);
+
+  const startedAtMs = Date.now();
+  const startedAt = new Date(startedAtMs).toISOString();
+
+  const samples = await runWithConcurrency(options.total, options.concurrency, async (workflowIndex) => {
+    const dagRunId = `${problem.id}-${runId}-${workflowIndex}`;
+    const sampleStartedAtMs = Date.now();
+    const sampleStartedAt = new Date(sampleStartedAtMs).toISOString();
+    const input: WorkflowInput = {
+      runId,
+      problemId: problem.id,
+      workflowIndex,
+      params: problem.params
+    };
+
+    try {
+      recordWorkflowStarted(options, runId);
+      await client.triggerDagRun(dagId, dagRunId, { ...input });
+      const state = await waitForAirflowDagRun(client, dagId, dagRunId, 20 * 60 * 1000);
+      const completedAtMs = Date.now();
+      const ok = state === "success";
+      const sample = {
+        workflowId: dagRunId,
+        workflowIndex,
+        ok,
+        startedAt: sampleStartedAt,
+        completedAt: new Date(completedAtMs).toISOString(),
+        latencyMs: completedAtMs - sampleStartedAtMs,
+        result: ok ? expectedAirflowResult(input) : undefined,
+        error: ok ? undefined : `Airflow DAG run ended with state ${state}`
+      } satisfies BenchmarkSample;
+      recordWorkflowSample(options, runId, sample);
+      return sample;
+    } catch (error) {
+      const completedAtMs = Date.now();
+      const sample = {
+        workflowId: dagRunId,
+        workflowIndex,
+        ok: false,
+        startedAt: sampleStartedAt,
+        completedAt: new Date(completedAtMs).toISOString(),
+        latencyMs: completedAtMs - sampleStartedAtMs,
+        error: error instanceof Error ? error.message : String(error)
+      } satisfies BenchmarkSample;
+      recordWorkflowSample(options, runId, sample);
+      return sample;
+    }
+  });
+
+  const completedAtMs = Date.now();
+  const completedAt = new Date(completedAtMs).toISOString();
+  const succeeded = samples.filter((sample) => sample.ok).length;
+  const latencies = samples.map((sample) => sample.latencyMs);
+  const durationMs = completedAtMs - startedAtMs;
+
+  const result: BenchmarkResultFile = {
+    runId,
+    engine: "airflow",
+    problem,
+    options,
+    startedAt,
+    completedAt,
+    summary: {
+      total: options.total,
+      succeeded,
+      failed: options.total - succeeded,
+      durationMs,
+      workflowsPerSecond: Number((options.total / (durationMs / 1000)).toFixed(2)),
+      p50LatencyMs: percentile(latencies, 50),
+      p95LatencyMs: percentile(latencies, 95),
+      p99LatencyMs: percentile(latencies, 99)
+    },
+    samples
+  };
+  recordBenchmarkResult(result);
+  return result;
+}
+
 async function main(): Promise<void> {
   const program = new Command()
     .option("--engine <engine>", "engine adapter to run", "temporal")
@@ -265,6 +378,9 @@ async function main(): Promise<void> {
     .option("--concurrency <count>", "concurrent workflow starts")
     .option("--temporal-address <address>", "Temporal frontend address", "localhost:7233")
     .option("--conductor-url <url>", "Conductor API base URL", "http://localhost:8080/api")
+    .option("--airflow-url <url>", "Airflow stable REST API base URL", "http://localhost:8081/api/v1")
+    .option("--airflow-username <username>", "Airflow API username", "airflow")
+    .option("--airflow-password <password>", "Airflow API password", "airflow")
     .option("--namespace <namespace>", "Temporal namespace", "default")
     .option("--task-queue <taskQueue>", "Temporal task queue", "benchmark-temporal")
     .option("--results-dir <dir>", "directory for result files", "results")
@@ -279,6 +395,9 @@ async function main(): Promise<void> {
     concurrency?: string;
     temporalAddress: string;
     conductorUrl: string;
+    airflowUrl: string;
+    airflowUsername: string;
+    airflowPassword: string;
     namespace: string;
     taskQueue: string;
     resultsDir: string;
@@ -286,7 +405,7 @@ async function main(): Promise<void> {
     metricsHoldMs: number;
   }>();
 
-  if (parsed.engine !== "temporal" && parsed.engine !== "conductor") {
+  if (parsed.engine !== "temporal" && parsed.engine !== "conductor" && parsed.engine !== "airflow") {
     throw new Error(`Engine ${parsed.engine} is not implemented.`);
   }
 
@@ -298,6 +417,9 @@ async function main(): Promise<void> {
     concurrency: parsed.concurrency ? parsePositiveInteger(parsed.concurrency) : problem.defaultConcurrency,
     temporalAddress: parsed.temporalAddress,
     conductorUrl: parsed.conductorUrl,
+    airflowUrl: parsed.airflowUrl,
+    airflowUsername: parsed.airflowUsername,
+    airflowPassword: parsed.airflowPassword,
     namespace: parsed.namespace,
     taskQueue: parsed.taskQueue,
     resultsDir: parsed.resultsDir,
@@ -306,7 +428,12 @@ async function main(): Promise<void> {
   };
 
   const metricsServer = startMetricsServer(options.metricsPort);
-  const result = options.engine === "temporal" ? await runTemporalBenchmark(options) : await runConductorBenchmark(options);
+  const result =
+    options.engine === "temporal"
+      ? await runTemporalBenchmark(options)
+      : options.engine === "conductor"
+        ? await runConductorBenchmark(options)
+        : await runAirflowBenchmark(options);
   await mkdir(options.resultsDir, { recursive: true });
   const fileName = `${result.engine}-${result.problem.id}-${result.runId}.json`;
   const filePath = join(options.resultsDir, fileName);

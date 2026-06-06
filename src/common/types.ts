@@ -1,4 +1,4 @@
-export type EngineName = "temporal" | "conductor";
+export type EngineName = "temporal" | "conductor" | "airflow";
 
 export type ProblemId =
   | "low-latency"
@@ -29,6 +29,9 @@ export interface BenchmarkRunOptions {
   taskQueue: string;
   namespace: string;
   conductorUrl: string;
+  airflowUrl: string;
+  airflowUsername: string;
+  airflowPassword: string;
   resultsDir: string;
   metricsPort: number;
   metricsHoldMs: number;
