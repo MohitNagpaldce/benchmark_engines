@@ -12,12 +12,26 @@ import type {
   WorkflowInput,
   WorkflowResult
 } from "./common/types";
+import {
+  recordBenchmarkResult,
+  recordWorkflowSample,
+  recordWorkflowStarted,
+  startMetricsServer
+} from "./metrics";
 import { getProblemDefinition, listProblemIds } from "./problems";
 
 function parsePositiveInteger(value: string): number {
   const parsed = Number(value);
   if (!Number.isInteger(parsed) || parsed <= 0) {
     throw new InvalidArgumentError("must be a positive integer");
+  }
+  return parsed;
+}
+
+function parseNonNegativeInteger(value: string): number {
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 0) {
+    throw new InvalidArgumentError("must be a non-negative integer");
   }
   return parsed;
 }
@@ -70,6 +84,7 @@ async function runTemporalBenchmark(options: BenchmarkRunOptions): Promise<Bench
     };
 
     try {
+      recordWorkflowStarted(options, runId);
       const handle = await client.workflow.start(problem.workflowType, {
         taskQueue: options.taskQueue,
         workflowId,
@@ -77,7 +92,7 @@ async function runTemporalBenchmark(options: BenchmarkRunOptions): Promise<Bench
       });
       const result = (await handle.result()) as WorkflowResult;
       const completedAtMs = Date.now();
-      return {
+      const sample = {
         workflowId,
         workflowIndex,
         ok: true,
@@ -86,9 +101,11 @@ async function runTemporalBenchmark(options: BenchmarkRunOptions): Promise<Bench
         latencyMs: completedAtMs - sampleStartedAtMs,
         result
       } satisfies BenchmarkSample;
+      recordWorkflowSample(options, runId, sample);
+      return sample;
     } catch (error) {
       const completedAtMs = Date.now();
-      return {
+      const sample = {
         workflowId,
         workflowIndex,
         ok: false,
@@ -97,6 +114,8 @@ async function runTemporalBenchmark(options: BenchmarkRunOptions): Promise<Bench
         latencyMs: completedAtMs - sampleStartedAtMs,
         error: error instanceof Error ? error.message : String(error)
       } satisfies BenchmarkSample;
+      recordWorkflowSample(options, runId, sample);
+      return sample;
     }
   });
 
@@ -106,7 +125,7 @@ async function runTemporalBenchmark(options: BenchmarkRunOptions): Promise<Bench
   const latencies = samples.map((sample) => sample.latencyMs);
   const durationMs = completedAtMs - startedAtMs;
 
-  return {
+  const result: BenchmarkResultFile = {
     runId,
     engine: "temporal",
     problem,
@@ -125,6 +144,8 @@ async function runTemporalBenchmark(options: BenchmarkRunOptions): Promise<Bench
     },
     samples
   };
+  recordBenchmarkResult(result);
+  return result;
 }
 
 async function main(): Promise<void> {
@@ -136,7 +157,9 @@ async function main(): Promise<void> {
     .option("--temporal-address <address>", "Temporal frontend address", "localhost:7233")
     .option("--namespace <namespace>", "Temporal namespace", "default")
     .option("--task-queue <taskQueue>", "Temporal task queue", "benchmark-temporal")
-    .option("--results-dir <dir>", "directory for result files", "results");
+    .option("--results-dir <dir>", "directory for result files", "results")
+    .option("--metrics-port <port>", "Prometheus metrics port for the benchmark runner", parsePositiveInteger, 9464)
+    .option("--metrics-hold-ms <ms>", "keep metrics endpoint alive after completion for Prometheus scraping", parseNonNegativeInteger, 15000);
 
   program.parse();
   const parsed = program.opts<{
@@ -148,6 +171,8 @@ async function main(): Promise<void> {
     namespace: string;
     taskQueue: string;
     resultsDir: string;
+    metricsPort: number;
+    metricsHoldMs: number;
   }>();
 
   if (parsed.engine !== "temporal") {
@@ -163,9 +188,12 @@ async function main(): Promise<void> {
     temporalAddress: parsed.temporalAddress,
     namespace: parsed.namespace,
     taskQueue: parsed.taskQueue,
-    resultsDir: parsed.resultsDir
+    resultsDir: parsed.resultsDir,
+    metricsPort: parsed.metricsPort,
+    metricsHoldMs: parsed.metricsHoldMs
   };
 
+  const metricsServer = startMetricsServer(options.metricsPort);
   const result = await runTemporalBenchmark(options);
   await mkdir(options.resultsDir, { recursive: true });
   const fileName = `${result.engine}-${result.problem.id}-${result.runId}.json`;
@@ -173,6 +201,10 @@ async function main(): Promise<void> {
   await writeFile(filePath, `${JSON.stringify(result, null, 2)}\n`, "utf8");
 
   console.log(JSON.stringify({ resultFile: filePath, summary: result.summary }, null, 2));
+  if (options.metricsHoldMs > 0) {
+    await new Promise((resolve) => setTimeout(resolve, options.metricsHoldMs));
+  }
+  metricsServer.close();
 }
 
 main().catch((error) => {

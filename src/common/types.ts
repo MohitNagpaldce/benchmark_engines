@@ -29,6 +29,8 @@ export interface BenchmarkRunOptions {
   taskQueue: string;
   namespace: string;
   resultsDir: string;
+  metricsPort: number;
+  metricsHoldMs: number;
 }
 
 export interface WorkflowInput {

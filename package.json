@@ -8,6 +8,10 @@
     "temporal:down": "docker compose -f docker-compose.temporal.yml down",
     "temporal:worker": "tsx src/engines/temporal/worker.ts",
     "temporal:bench": "tsx src/runner.ts --engine temporal",
+    "observability:up": "docker compose -f docker-compose.temporal.yml -f docker-compose.observability.yml up -d prometheus grafana",
+    "observability:down": "docker compose -f docker-compose.temporal.yml -f docker-compose.observability.yml down",
+    "stack:up": "docker compose -f docker-compose.temporal.yml -f docker-compose.observability.yml up -d",
+    "stack:down": "docker compose -f docker-compose.temporal.yml -f docker-compose.observability.yml down",
     "conductor:up": "docker compose -f docker-compose.conductor.yml up -d",
     "conductor:down": "docker compose -f docker-compose.conductor.yml down",
     "typecheck": "tsc --noEmit"
@@ -18,7 +22,8 @@
     "@temporalio/common": "^1.12.1",
     "@temporalio/worker": "^1.12.1",
     "@temporalio/workflow": "^1.12.1",
-    "commander": "^12.1.0"
+    "commander": "^12.1.0",
+    "prom-client": "^15.1.3"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
