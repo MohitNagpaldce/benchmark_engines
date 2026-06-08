@@ -6,33 +6,33 @@ Run date: 2026-06-06 PDT
 
 This report is a deterministic bootstrap-style simulation using the latest raw benchmark result file for each engine and workload. For every engine/test case, 1000 workflow executions were sampled with replacement from the observed per-workflow samples, then average latency and percentile metrics were recalculated.
 
-This is not a live 1000-workflow rerun against each engine. A full live 1000-run suite for Conductor and Airflow would take substantially longer in this local environment. The `measuredWorkflowsPerSecond` column is the throughput from the source benchmark run, not a simulated value.
+The `measuredWorkflowsPerSecond` column is the throughput from the source benchmark run, not a simulated value.
 
 ## Final Metrics
 
-| Test case | Description | Engine | Source run size | Simulated executions | Success rate | Avg latency | P50 | P95 | P99 | Measured workflows/sec |
-| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| low-latency | Short request-style workflow with small sequential RPC-like steps. | temporal | 100 | 1000 | 100.00% | 547 ms | 550 ms | 561 ms | 565 ms | 18.25 |
-| low-latency | Short request-style workflow with small sequential RPC-like steps. | conductor | 10 | 1000 | 100.00% | 11,436 ms | 11,385 ms | 11,591 ms | 11,591 ms | 0.86 |
-| low-latency | Short request-style workflow with small sequential RPC-like steps. | airflow | 5 | 1000 | 100.00% | 5,841 ms | 5,644 ms | 6,152 ms | 6,152 ms | 0.81 |
-| high-throughput | Fan-out/fan-in workflow with many parallel tasks. | temporal | 20 | 1000 | 100.00% | 837 ms | 452 ms | 4,900 ms | 4,900 ms | 3.21 |
-| high-throughput | Fan-out/fan-in workflow with many parallel tasks. | conductor | 5 | 1000 | 100.00% | 31,549 ms | 30,433 ms | 36,849 ms | 36,849 ms | 0.14 |
-| high-throughput | Fan-out/fan-in workflow with many parallel tasks. | airflow | 3 | 1000 | 100.00% | 32,503 ms | 32,267 ms | 33,076 ms | 33,076 ms | 0.09 |
-| deep-sequential | Long ordered workflow with 50 sequential steps. | temporal | 20 | 1000 | 100.00% | 5,001 ms | 5,042 ms | 5,065 ms | 5,065 ms | 1.00 |
-| deep-sequential | Long ordered workflow with 50 sequential steps. | conductor | 5 | 1000 | 100.00% | 108,117 ms | 108,116 ms | 108,120 ms | 108,120 ms | 0.05 |
-| deep-sequential | Long ordered workflow with 50 sequential steps. | airflow | 3 | 1000 | 100.00% | 50,499 ms | 50,495 ms | 50,526 ms | 50,526 ms | 0.06 |
-| long-running | Work, wait/timer, then resume more work. | temporal | 50 | 1000 | 100.00% | 5,358 ms | 5,433 ms | 5,516 ms | 5,519 ms | 1.83 |
-| long-running | Work, wait/timer, then resume more work. | conductor | 5 | 1000 | 100.00% | 28,304 ms | 28,304 ms | 28,306 ms | 28,306 ms | 0.18 |
-| long-running | Work, wait/timer, then resume more work. | airflow | 3 | 1000 | 100.00% | 11,323 ms | 11,312 ms | 11,351 ms | 11,351 ms | 0.26 |
-| retry-heavy | Injected task failures with retry policy enabled. | temporal | 50 | 1000 | 100.00% | 2,227 ms | 1,556 ms | 4,549 ms | 5,498 ms | 4.04 |
-| retry-heavy | Injected task failures with retry policy enabled. | conductor | 5 | 1000 | 100.00% | 11,704 ms | 12,265 ms | 14,270 ms | 14,270 ms | 0.35 |
-| retry-heavy | Injected task failures with retry policy enabled. | airflow | 3 | 1000 | 100.00% | 8,426 ms | 8,427 ms | 8,428 ms | 8,428 ms | 0.36 |
-| timer-intensive | Ten sequential timer/wait steps. | temporal | 100 | 1000 | 100.00% | 10,456 ms | 10,546 ms | 10,574 ms | 10,574 ms | 2.37 |
-| timer-intensive | Ten sequential timer/wait steps. | conductor | 5 | 1000 | 100.00% | 24,734 ms | 24,778 ms | 25,543 ms | 25,543 ms | 0.20 |
-| timer-intensive | Ten sequential timer/wait steps. | airflow | 3 | 1000 | 100.00% | 20,144 ms | 20,142 ms | 20,151 ms | 20,151 ms | 0.15 |
-| failure-recovery | Baseline recovery-shaped workflow: work, long wait, resume work; no crash injection yet. | temporal | 100 | 1000 | 100.00% | 30,553 ms | 30,570 ms | 30,629 ms | 30,633 ms | 0.82 |
-| failure-recovery | Baseline recovery-shaped workflow: work, long wait, resume work; no crash injection yet. | conductor | 5 | 1000 | 100.00% | 39,830 ms | 39,830 ms | 39,831 ms | 39,831 ms | 0.13 |
-| failure-recovery | Baseline recovery-shaped workflow: work, long wait, resume work; no crash injection yet. | airflow | 3 | 1000 | 100.00% | 36,612 ms | 36,612 ms | 36,626 ms | 36,626 ms | 0.08 |
+| Test case | Description | Engine | Source run size | Simulated executions | Avg latency | P50 | P95 | P99 | Measured workflows/sec |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| low-latency | Short request-style workflow with small sequential RPC-like steps. | temporal | 100 | 1000 | 547 ms | 550 ms | 561 ms | 565 ms | 18.25 |
+| low-latency | Short request-style workflow with small sequential RPC-like steps. | conductor | 10 | 1000 | 11,436 ms | 11,385 ms | 11,591 ms | 11,591 ms | 0.86 |
+| low-latency | Short request-style workflow with small sequential RPC-like steps. | airflow | 5 | 1000 | 5,841 ms | 5,644 ms | 6,152 ms | 6,152 ms | 0.81 |
+| high-throughput | Fan-out/fan-in workflow with many parallel tasks. | temporal | 20 | 1000 | 837 ms | 452 ms | 4,900 ms | 4,900 ms | 3.21 |
+| high-throughput | Fan-out/fan-in workflow with many parallel tasks. | conductor | 5 | 1000 | 31,549 ms | 30,433 ms | 36,849 ms | 36,849 ms | 0.14 |
+| high-throughput | Fan-out/fan-in workflow with many parallel tasks. | airflow | 3 | 1000 | 32,503 ms | 32,267 ms | 33,076 ms | 33,076 ms | 0.09 |
+| deep-sequential | Long ordered workflow with 50 sequential steps. | temporal | 20 | 1000 | 5,001 ms | 5,042 ms | 5,065 ms | 5,065 ms | 1.00 |
+| deep-sequential | Long ordered workflow with 50 sequential steps. | conductor | 5 | 1000 | 108,117 ms | 108,116 ms | 108,120 ms | 108,120 ms | 0.05 |
+| deep-sequential | Long ordered workflow with 50 sequential steps. | airflow | 3 | 1000 | 50,499 ms | 50,495 ms | 50,526 ms | 50,526 ms | 0.06 |
+| long-running | Work, wait/timer, then resume more work. | temporal | 50 | 1000 | 5,358 ms | 5,433 ms | 5,516 ms | 5,519 ms | 1.83 |
+| long-running | Work, wait/timer, then resume more work. | conductor | 5 | 1000 | 28,304 ms | 28,304 ms | 28,306 ms | 28,306 ms | 0.18 |
+| long-running | Work, wait/timer, then resume more work. | airflow | 3 | 1000 | 11,323 ms | 11,312 ms | 11,351 ms | 11,351 ms | 0.26 |
+| retry-heavy | Injected task failures with retry policy enabled. | temporal | 50 | 1000 | 2,227 ms | 1,556 ms | 4,549 ms | 5,498 ms | 4.04 |
+| retry-heavy | Injected task failures with retry policy enabled. | conductor | 5 | 1000 | 11,704 ms | 12,265 ms | 14,270 ms | 14,270 ms | 0.35 |
+| retry-heavy | Injected task failures with retry policy enabled. | airflow | 3 | 1000 | 8,426 ms | 8,427 ms | 8,428 ms | 8,428 ms | 0.36 |
+| timer-intensive | Ten sequential timer/wait steps. | temporal | 100 | 1000 | 10,456 ms | 10,546 ms | 10,574 ms | 10,574 ms | 2.37 |
+| timer-intensive | Ten sequential timer/wait steps. | conductor | 5 | 1000 | 24,734 ms | 24,778 ms | 25,543 ms | 25,543 ms | 0.20 |
+| timer-intensive | Ten sequential timer/wait steps. | airflow | 3 | 1000 | 20,144 ms | 20,142 ms | 20,151 ms | 20,151 ms | 0.15 |
+| failure-recovery | Baseline recovery-shaped workflow: work, long wait, resume work; no crash injection yet. | temporal | 100 | 1000 | 30,553 ms | 30,570 ms | 30,629 ms | 30,633 ms | 0.82 |
+| failure-recovery | Baseline recovery-shaped workflow: work, long wait, resume work; no crash injection yet. | conductor | 5 | 1000 | 39,830 ms | 39,830 ms | 39,831 ms | 39,831 ms | 0.13 |
+| failure-recovery | Baseline recovery-shaped workflow: work, long wait, resume work; no crash injection yet. | airflow | 3 | 1000 | 36,612 ms | 36,612 ms | 36,626 ms | 36,626 ms | 0.08 |
 
 ## Source Result Files
 

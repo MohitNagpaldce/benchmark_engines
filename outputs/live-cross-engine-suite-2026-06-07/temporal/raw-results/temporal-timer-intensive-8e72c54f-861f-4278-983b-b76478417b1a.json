@@ -1,0 +1,1651 @@
+{
+  "runId": "8e72c54f-861f-4278-983b-b76478417b1a",
+  "engine": "temporal",
+  "problem": {
+    "id": "timer-intensive",
+    "name": "Timer-Intensive Workflows",
+    "objective": "Measure timer scheduling accuracy and queue scalability.",
+    "workflowType": "timerIntensiveWorkflow",
+    "defaultTotal": 100,
+    "defaultConcurrency": 25,
+    "params": {
+      "timers": 10,
+      "timerMs": 1000
+    },
+    "metrics": [
+      "timer_scheduling_accuracy",
+      "timer_fire_delay",
+      "timer_queue_scalability"
+    ]
+  },
+  "options": {
+    "engine": "temporal",
+    "problem": "timer-intensive",
+    "total": 100,
+    "concurrency": 25,
+    "temporalAddress": "localhost:7233",
+    "conductorUrl": "http://localhost:8080/api",
+    "airflowUrl": "http://localhost:8081/api/v1",
+    "airflowUsername": "airflow",
+    "airflowPassword": "airflow",
+    "namespace": "default",
+    "taskQueue": "benchmark-temporal",
+    "resultsDir": "outputs/live-temporal-suite-2026-06-07/raw-results",
+    "metricsPort": 9564,
+    "metricsHoldMs": 0
+  },
+  "startedAt": "2026-06-07T19:01:37.833Z",
+  "completedAt": "2026-06-07T19:02:20.114Z",
+  "summary": {
+    "total": 100,
+    "succeeded": 100,
+    "failed": 0,
+    "durationMs": 42281,
+    "workflowsPerSecond": 2.37,
+    "p50LatencyMs": 10548,
+    "p95LatencyMs": 10566,
+    "p99LatencyMs": 10619
+  },
+  "samples": [
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-0",
+      "workflowIndex": 0,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.833Z",
+      "completedAt": "2026-06-07T19:01:48.113Z",
+      "latencyMs": 10280,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 0,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-1",
+      "workflowIndex": 1,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.157Z",
+      "latencyMs": 10323,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 1,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-2",
+      "workflowIndex": 2,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.453Z",
+      "latencyMs": 10619,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 2,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-3",
+      "workflowIndex": 3,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.088Z",
+      "latencyMs": 10254,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 3,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-4",
+      "workflowIndex": 4,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.162Z",
+      "latencyMs": 10328,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 4,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-5",
+      "workflowIndex": 5,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.075Z",
+      "latencyMs": 10241,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 5,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-6",
+      "workflowIndex": 6,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.251Z",
+      "latencyMs": 10417,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 6,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-7",
+      "workflowIndex": 7,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.454Z",
+      "latencyMs": 10620,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 7,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-8",
+      "workflowIndex": 8,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.300Z",
+      "latencyMs": 10466,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 8,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-9",
+      "workflowIndex": 9,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.110Z",
+      "latencyMs": 10276,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 9,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-10",
+      "workflowIndex": 10,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.452Z",
+      "latencyMs": 10618,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 10,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-11",
+      "workflowIndex": 11,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.207Z",
+      "latencyMs": 10373,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 11,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-12",
+      "workflowIndex": 12,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.400Z",
+      "latencyMs": 10566,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 12,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-13",
+      "workflowIndex": 13,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.400Z",
+      "latencyMs": 10566,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 13,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-14",
+      "workflowIndex": 14,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.115Z",
+      "latencyMs": 10281,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 14,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-15",
+      "workflowIndex": 15,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.453Z",
+      "latencyMs": 10619,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 15,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-16",
+      "workflowIndex": 16,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.073Z",
+      "latencyMs": 10239,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 16,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-17",
+      "workflowIndex": 17,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.160Z",
+      "latencyMs": 10326,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 17,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-18",
+      "workflowIndex": 18,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.087Z",
+      "latencyMs": 10253,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 18,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-19",
+      "workflowIndex": 19,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.076Z",
+      "latencyMs": 10242,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 19,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-20",
+      "workflowIndex": 20,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.171Z",
+      "latencyMs": 10337,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 20,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-21",
+      "workflowIndex": 21,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.452Z",
+      "latencyMs": 10618,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 21,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-22",
+      "workflowIndex": 22,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.350Z",
+      "latencyMs": 10516,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 22,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-23",
+      "workflowIndex": 23,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.076Z",
+      "latencyMs": 10242,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 23,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-24",
+      "workflowIndex": 24,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:37.834Z",
+      "completedAt": "2026-06-07T19:01:48.117Z",
+      "latencyMs": 10283,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 24,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-25",
+      "workflowIndex": 25,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.073Z",
+      "completedAt": "2026-06-07T19:01:58.296Z",
+      "latencyMs": 10223,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 25,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-26",
+      "workflowIndex": 26,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.075Z",
+      "completedAt": "2026-06-07T19:01:58.293Z",
+      "latencyMs": 10218,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 26,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-27",
+      "workflowIndex": 27,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.076Z",
+      "completedAt": "2026-06-07T19:01:58.350Z",
+      "latencyMs": 10274,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 27,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-28",
+      "workflowIndex": 28,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.076Z",
+      "completedAt": "2026-06-07T19:01:58.356Z",
+      "latencyMs": 10280,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 28,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-29",
+      "workflowIndex": 29,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.087Z",
+      "completedAt": "2026-06-07T19:01:58.296Z",
+      "latencyMs": 10209,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 29,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-30",
+      "workflowIndex": 30,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.088Z",
+      "completedAt": "2026-06-07T19:01:58.400Z",
+      "latencyMs": 10312,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 30,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-31",
+      "workflowIndex": 31,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.110Z",
+      "completedAt": "2026-06-07T19:01:58.500Z",
+      "latencyMs": 10390,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 31,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-32",
+      "workflowIndex": 32,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.113Z",
+      "completedAt": "2026-06-07T19:01:58.449Z",
+      "latencyMs": 10336,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 32,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-33",
+      "workflowIndex": 33,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.115Z",
+      "completedAt": "2026-06-07T19:01:58.297Z",
+      "latencyMs": 10182,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 33,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-34",
+      "workflowIndex": 34,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.117Z",
+      "completedAt": "2026-06-07T19:01:58.299Z",
+      "latencyMs": 10182,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 34,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-35",
+      "workflowIndex": 35,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.157Z",
+      "completedAt": "2026-06-07T19:01:58.601Z",
+      "latencyMs": 10444,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 35,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-36",
+      "workflowIndex": 36,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.160Z",
+      "completedAt": "2026-06-07T19:01:58.549Z",
+      "latencyMs": 10389,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 36,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-37",
+      "workflowIndex": 37,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.162Z",
+      "completedAt": "2026-06-07T19:01:58.653Z",
+      "latencyMs": 10491,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 37,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-38",
+      "workflowIndex": 38,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.171Z",
+      "completedAt": "2026-06-07T19:01:58.701Z",
+      "latencyMs": 10530,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 38,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-39",
+      "workflowIndex": 39,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.207Z",
+      "completedAt": "2026-06-07T19:01:58.760Z",
+      "latencyMs": 10553,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 39,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-40",
+      "workflowIndex": 40,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.251Z",
+      "completedAt": "2026-06-07T19:01:58.799Z",
+      "latencyMs": 10548,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 40,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-41",
+      "workflowIndex": 41,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.300Z",
+      "completedAt": "2026-06-07T19:01:58.849Z",
+      "latencyMs": 10549,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 41,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-42",
+      "workflowIndex": 42,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.350Z",
+      "completedAt": "2026-06-07T19:01:58.899Z",
+      "latencyMs": 10549,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 42,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-43",
+      "workflowIndex": 43,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.400Z",
+      "completedAt": "2026-06-07T19:01:58.951Z",
+      "latencyMs": 10551,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 43,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-44",
+      "workflowIndex": 44,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.400Z",
+      "completedAt": "2026-06-07T19:01:58.951Z",
+      "latencyMs": 10551,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 44,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-45",
+      "workflowIndex": 45,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.452Z",
+      "completedAt": "2026-06-07T19:01:59.014Z",
+      "latencyMs": 10562,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 45,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-46",
+      "workflowIndex": 46,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.452Z",
+      "completedAt": "2026-06-07T19:01:59.015Z",
+      "latencyMs": 10563,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 46,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-47",
+      "workflowIndex": 47,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.453Z",
+      "completedAt": "2026-06-07T19:01:59.014Z",
+      "latencyMs": 10561,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 47,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-48",
+      "workflowIndex": 48,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.453Z",
+      "completedAt": "2026-06-07T19:01:59.013Z",
+      "latencyMs": 10560,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 48,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-49",
+      "workflowIndex": 49,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:48.454Z",
+      "completedAt": "2026-06-07T19:01:59.015Z",
+      "latencyMs": 10561,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 49,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-50",
+      "workflowIndex": 50,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.293Z",
+      "completedAt": "2026-06-07T19:02:08.802Z",
+      "latencyMs": 10509,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 50,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-51",
+      "workflowIndex": 51,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.296Z",
+      "completedAt": "2026-06-07T19:02:08.657Z",
+      "latencyMs": 10361,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 51,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-52",
+      "workflowIndex": 52,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.296Z",
+      "completedAt": "2026-06-07T19:02:08.762Z",
+      "latencyMs": 10466,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 52,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-53",
+      "workflowIndex": 53,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.297Z",
+      "completedAt": "2026-06-07T19:02:08.705Z",
+      "latencyMs": 10408,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 53,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-54",
+      "workflowIndex": 54,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.299Z",
+      "completedAt": "2026-06-07T19:02:08.608Z",
+      "latencyMs": 10309,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 54,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-55",
+      "workflowIndex": 55,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.350Z",
+      "completedAt": "2026-06-07T19:02:08.856Z",
+      "latencyMs": 10506,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 55,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-56",
+      "workflowIndex": 56,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.356Z",
+      "completedAt": "2026-06-07T19:02:08.902Z",
+      "latencyMs": 10546,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 56,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-57",
+      "workflowIndex": 57,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.400Z",
+      "completedAt": "2026-06-07T19:02:08.953Z",
+      "latencyMs": 10553,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 57,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-58",
+      "workflowIndex": 58,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.449Z",
+      "completedAt": "2026-06-07T19:02:09.005Z",
+      "latencyMs": 10556,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 58,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-59",
+      "workflowIndex": 59,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.500Z",
+      "completedAt": "2026-06-07T19:02:09.053Z",
+      "latencyMs": 10553,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 59,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-60",
+      "workflowIndex": 60,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.549Z",
+      "completedAt": "2026-06-07T19:02:09.105Z",
+      "latencyMs": 10556,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 60,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-61",
+      "workflowIndex": 61,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.601Z",
+      "completedAt": "2026-06-07T19:02:09.155Z",
+      "latencyMs": 10554,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 61,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-62",
+      "workflowIndex": 62,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.653Z",
+      "completedAt": "2026-06-07T19:02:09.208Z",
+      "latencyMs": 10555,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 62,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-63",
+      "workflowIndex": 63,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.701Z",
+      "completedAt": "2026-06-07T19:02:09.251Z",
+      "latencyMs": 10550,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 63,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-64",
+      "workflowIndex": 64,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.760Z",
+      "completedAt": "2026-06-07T19:02:09.308Z",
+      "latencyMs": 10548,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 64,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-65",
+      "workflowIndex": 65,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.799Z",
+      "completedAt": "2026-06-07T19:02:09.356Z",
+      "latencyMs": 10557,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 65,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-66",
+      "workflowIndex": 66,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.849Z",
+      "completedAt": "2026-06-07T19:02:09.405Z",
+      "latencyMs": 10556,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 66,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-67",
+      "workflowIndex": 67,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.899Z",
+      "completedAt": "2026-06-07T19:02:09.451Z",
+      "latencyMs": 10552,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 67,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-68",
+      "workflowIndex": 68,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.951Z",
+      "completedAt": "2026-06-07T19:02:09.511Z",
+      "latencyMs": 10560,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 68,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-69",
+      "workflowIndex": 69,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:58.951Z",
+      "completedAt": "2026-06-07T19:02:09.509Z",
+      "latencyMs": 10558,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 69,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-70",
+      "workflowIndex": 70,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:59.013Z",
+      "completedAt": "2026-06-07T19:02:09.568Z",
+      "latencyMs": 10555,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 70,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-71",
+      "workflowIndex": 71,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:59.014Z",
+      "completedAt": "2026-06-07T19:02:09.567Z",
+      "latencyMs": 10553,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 71,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-72",
+      "workflowIndex": 72,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:59.014Z",
+      "completedAt": "2026-06-07T19:02:09.569Z",
+      "latencyMs": 10555,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 72,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-73",
+      "workflowIndex": 73,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:59.015Z",
+      "completedAt": "2026-06-07T19:02:09.566Z",
+      "latencyMs": 10551,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 73,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-74",
+      "workflowIndex": 74,
+      "ok": true,
+      "startedAt": "2026-06-07T19:01:59.015Z",
+      "completedAt": "2026-06-07T19:02:09.566Z",
+      "latencyMs": 10551,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 74,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-75",
+      "workflowIndex": 75,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:08.608Z",
+      "completedAt": "2026-06-07T19:02:19.156Z",
+      "latencyMs": 10548,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 75,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-76",
+      "workflowIndex": 76,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:08.657Z",
+      "completedAt": "2026-06-07T19:02:19.199Z",
+      "latencyMs": 10542,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 76,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-77",
+      "workflowIndex": 77,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:08.705Z",
+      "completedAt": "2026-06-07T19:02:19.252Z",
+      "latencyMs": 10547,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 77,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-78",
+      "workflowIndex": 78,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:08.762Z",
+      "completedAt": "2026-06-07T19:02:19.307Z",
+      "latencyMs": 10545,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 78,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-79",
+      "workflowIndex": 79,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:08.803Z",
+      "completedAt": "2026-06-07T19:02:19.352Z",
+      "latencyMs": 10549,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 79,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-80",
+      "workflowIndex": 80,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:08.856Z",
+      "completedAt": "2026-06-07T19:02:19.402Z",
+      "latencyMs": 10546,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 80,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-81",
+      "workflowIndex": 81,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:08.902Z",
+      "completedAt": "2026-06-07T19:02:19.461Z",
+      "latencyMs": 10559,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 81,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-82",
+      "workflowIndex": 82,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:08.953Z",
+      "completedAt": "2026-06-07T19:02:19.502Z",
+      "latencyMs": 10549,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 82,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-83",
+      "workflowIndex": 83,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.005Z",
+      "completedAt": "2026-06-07T19:02:19.561Z",
+      "latencyMs": 10556,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 83,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-84",
+      "workflowIndex": 84,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.053Z",
+      "completedAt": "2026-06-07T19:02:19.606Z",
+      "latencyMs": 10553,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 84,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-85",
+      "workflowIndex": 85,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.105Z",
+      "completedAt": "2026-06-07T19:02:19.652Z",
+      "latencyMs": 10547,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 85,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-86",
+      "workflowIndex": 86,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.155Z",
+      "completedAt": "2026-06-07T19:02:19.705Z",
+      "latencyMs": 10550,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 86,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-87",
+      "workflowIndex": 87,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.208Z",
+      "completedAt": "2026-06-07T19:02:19.759Z",
+      "latencyMs": 10551,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 87,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-88",
+      "workflowIndex": 88,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.251Z",
+      "completedAt": "2026-06-07T19:02:19.806Z",
+      "latencyMs": 10555,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 88,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-89",
+      "workflowIndex": 89,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.308Z",
+      "completedAt": "2026-06-07T19:02:19.873Z",
+      "latencyMs": 10565,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 89,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-90",
+      "workflowIndex": 90,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.357Z",
+      "completedAt": "2026-06-07T19:02:19.909Z",
+      "latencyMs": 10552,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 90,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-91",
+      "workflowIndex": 91,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.405Z",
+      "completedAt": "2026-06-07T19:02:19.952Z",
+      "latencyMs": 10547,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 91,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-92",
+      "workflowIndex": 92,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.451Z",
+      "completedAt": "2026-06-07T19:02:20.006Z",
+      "latencyMs": 10555,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 92,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-93",
+      "workflowIndex": 93,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.509Z",
+      "completedAt": "2026-06-07T19:02:20.061Z",
+      "latencyMs": 10552,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 93,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-94",
+      "workflowIndex": 94,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.511Z",
+      "completedAt": "2026-06-07T19:02:20.061Z",
+      "latencyMs": 10550,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 94,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-95",
+      "workflowIndex": 95,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.566Z",
+      "completedAt": "2026-06-07T19:02:20.111Z",
+      "latencyMs": 10545,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 95,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-96",
+      "workflowIndex": 96,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.566Z",
+      "completedAt": "2026-06-07T19:02:20.114Z",
+      "latencyMs": 10548,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 96,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-97",
+      "workflowIndex": 97,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.567Z",
+      "completedAt": "2026-06-07T19:02:20.108Z",
+      "latencyMs": 10541,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 97,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-98",
+      "workflowIndex": 98,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.568Z",
+      "completedAt": "2026-06-07T19:02:20.114Z",
+      "latencyMs": 10546,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 98,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    },
+    {
+      "workflowId": "timer-intensive-8e72c54f-861f-4278-983b-b76478417b1a-99",
+      "workflowIndex": 99,
+      "ok": true,
+      "startedAt": "2026-06-07T19:02:09.569Z",
+      "completedAt": "2026-06-07T19:02:20.108Z",
+      "latencyMs": 10539,
+      "result": {
+        "problemId": "timer-intensive",
+        "workflowIndex": 99,
+        "completedSteps": 10,
+        "activityCalls": 0,
+        "timerCount": 10,
+        "retryableFailures": 0
+      }
+    }
+  ]
+}

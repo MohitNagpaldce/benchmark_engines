@@ -242,7 +242,7 @@ The Airflow adapter triggers DAG runs through the stable REST API and writes the
 
 Docker is required to run Conductor locally through the provided Compose file. Temporal can also run through Docker, but the Temporal CLI dev server works without Docker.
 
-The published reports under `outputs/` include local pilot measurements and a deterministic 1000-execution bootstrap-style simulation. The simulation resamples observed benchmark samples and should not be interpreted as a full live 1000-workflow execution against every engine. For publication-grade claims, run a fresh live benchmark suite on a fixed host or cluster and archive the raw `results/` files.
+The published reports under `outputs/` include local pilot measurements, historical bootstrap-style reports, and a live cross-engine benchmark archive generated on 2026-06-07. For publication-grade claims, prefer the live archive, run future suites on fixed hardware with equal run sizes where practical, and archive the raw `results/` files.
 
 ## Citation
 
