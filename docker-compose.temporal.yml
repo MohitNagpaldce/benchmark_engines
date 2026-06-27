@@ -1,16 +1,55 @@
 services:
+  temporal-postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: temporal
+      POSTGRES_PASSWORD: temporal
+      POSTGRES_DB: temporal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U temporal"]
+      interval: 5s
+      retries: 20
+    cpus: '4'
+    mem_limit: 4g
+    volumes:
+      - temporal-postgres-data:/var/lib/postgresql/data
+
   temporal:
-    image: temporalio/temporal:latest
-    command: ["server", "start-dev", "--ip", "0.0.0.0"]
+    image: temporalio/auto-setup:latest
     ports:
       - "7233:7233"
       - "8233:8233"
       - "8000:8000"
     environment:
+      - DB=postgres12
+      - DB_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PWD=temporal
+      - POSTGRES_SEEDS=temporal-postgres
       - TEMPORAL_UI_PORT=8233
       - PROMETHEUS_ENDPOINT=0.0.0.0:8000
-    volumes:
-      - temporal-data:/var/lib/temporal
+    cpus: '6'
+    mem_limit: 8g
+    depends_on:
+      temporal-postgres:
+        condition: service_healthy
+
+  temporal-worker:
+    build: .
+    command: ["npx", "tsx", "src/engines/temporal/worker.ts"]
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_NAMESPACE=default
+      - TEMPORAL_TASK_QUEUE=benchmark-temporal
+      - TEMPORAL_WORKER_METRICS_ADDRESS=0.0.0.0:9465
+      - TEMPORAL_MAX_ACTIVITIES=800
+      - TEMPORAL_MAX_WORKFLOWS=800
+    ports:
+      - "9465:9465"
+    cpus: '6'
+    mem_limit: 8g
+    depends_on:
+      - temporal
 
 volumes:
-  temporal-data:
+  temporal-postgres-data:

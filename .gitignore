@@ -6,7 +6,6 @@ work/
 npm-debug.log*
 __pycache__/
 *.py[cod]
-outputs/workflow-orchestration-engines-research-paper.md
 outputs/workflow-orchestration-engines-research-paper.docx
 outputs/workflow-orchestration-engines-research-paper-gdocs.docx
 outputs/softwarex-*.docx

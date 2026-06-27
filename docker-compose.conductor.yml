@@ -1,12 +1,47 @@
 services:
+  conductor-postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: conductor
+      POSTGRES_PASSWORD: conductor
+      POSTGRES_DB: conductor
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U conductor"]
+      interval: 5s
+      retries: 20
+    cpus: '4'
+    mem_limit: 4g
+    volumes:
+      - conductor-postgres-data:/var/lib/postgresql/data
+
   conductor:
     image: conductoross/conductor:latest
     ports:
       - "8080:8080"
     environment:
-      - CONDUCTOR_SERVER_URL=http://localhost:8080/api
-    volumes:
-      - conductor-data:/app/data
+      - CONDUCTOR_DB_TYPE=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://conductor-postgres:5432/conductor
+      - SPRING_DATASOURCE_USERNAME=conductor
+      - SPRING_DATASOURCE_PASSWORD=conductor
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
+      - CONDUCTOR_INDEXING_ENABLED=false
+    cpus: '6'
+    mem_limit: 8g
+    depends_on:
+      conductor-postgres:
+        condition: service_healthy
+
+  conductor-worker:
+    build: .
+    command: ["npx", "tsx", "src/engines/conductor/worker.ts"]
+    environment:
+      - CONDUCTOR_URL=http://conductor:8080/api
+      - CONDUCTOR_POLL_COUNT=80
+      - CONDUCTOR_POLL_TIMEOUT_MS=1000
+    cpus: '6'
+    mem_limit: 8g
+    depends_on:
+      - conductor
 
 volumes:
-  conductor-data:
+  conductor-postgres-data:
