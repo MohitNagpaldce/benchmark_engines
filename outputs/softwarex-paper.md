@@ -249,6 +249,10 @@ We have described an open-source benchmark harness that enables reproducible, wo
 
 ---
 
+## Declaration of Generative AI and AI-Assisted Technologies
+
+During the preparation of this work, the author used Claude (Anthropic) to assist with manuscript drafting, content organization, and figure generation. The author reviewed and edited all output, verified all benchmark results against raw data files, and takes full responsibility for the content of the published article.
+
 ## Conflict of Interest
 
 The author declares no conflict of interest.
