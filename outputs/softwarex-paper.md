@@ -202,6 +202,31 @@ All results were obtained on a local development machine (Apple M-series, 36 GB 
 
 These results demonstrate the harness's ability to surface both resource-sensitive and structurally-bounded behaviors. Temporal scales cleanly with CPU for latency-sensitive workloads (low-latency: −67% P50 from C1→C3). Conductor's deep-sequential workload remains flat across all configs (105,774 ms → 105,303 ms), confirming the bottleneck is sequential HTTP poll round-trips, not compute. Airflow's high-throughput workload crashed the scheduler OOM in Config 1 (LocalExecutor subprocess fan-out exhausted memory) but completed at Config 2 with a 10 GB scheduler allocation.
 
+### 3.4 Operational Feature Characterization
+
+Beyond performance, the benchmark context reveals structural differences in operational capabilities across engines. The table below summarizes ten dimensions relevant to production deployments, derived from documentation review and hands-on evaluation during harness development.
+
+| Feature | Temporal | Conductor | Airflow |
+|---|---|---|---|
+| Live workflow editing | New worker deploy; in-flight migration via `patched()` API | Register new definition version; in-flight runs keep old version | Edit DAG file; next scheduler parse picks up change |
+| Determinism requirement | **Yes** — workflow code must be deterministic; non-deterministic changes crash replaying workers | No — JSON definitions are not replayed | No — Python DAG code is not replayed |
+| Workflow replay | Full deterministic replay from stored event history | No — retry/restart only | No — clear and re-run tasks only |
+| Version control | External VCS; in-code `patched()` markers | Server stores multiple named versions per workflow name | External VCS only |
+| Rate limiting | Per-second (worker), per-task-queue, per-namespace | Per-task-type rate limit and concurrent execution cap | Pool slots and DAG-level concurrency caps |
+| Diff viewer | None built-in | None built-in | None built-in |
+| Change approval | External CI/CD and code review | External API access controls | VCS branch protection and PR review |
+| Reports | Event history per execution; Prometheus metrics | Execution search; full-text search with Elasticsearch | DAG run history, Gantt chart, duration trends, SLA tracking |
+| Durable wait / timer | Yes — server-managed, survives all restarts, no worker slot consumed | Yes — WAIT system task, server-managed | No — polling sensors or blocking sleep; not crash-durable |
+| Event-based triggers (mid-run) | Yes — signals and updates addressed to running instances; durable | Yes — EVENT system task with external queue integration | No — sensors poll externally; no mid-run event delivery |
+
+Key findings:
+
+- **Temporal** is the only engine with true deterministic workflow replay from stored event history — a significant debugging advantage. Its `patched()` API enables safe rolling deployment of changed workflow logic without terminating in-flight executions, but requires strict code determinism.
+- **Conductor** provides the most explicit server-side definition versioning: multiple versions of the same workflow name coexist in the server, and the start request can pin a specific version with zero impact on running instances.
+- **Airflow** provides the richest built-in historical reporting (Gantt charts, duration trends, SLA miss tracking, audit logs). Neither Temporal nor Conductor match Airflow's built-in operational dashboards.
+- **None** of the three engines provides a built-in workflow diff viewer or change approval gate. All three require external tooling (CI/CD pipelines, VCS branch protection, code review) to enforce definition change governance.
+- **Durable timers**: Temporal and Conductor both provide server-managed timers that survive process crashes and consume no worker slots during the wait. Airflow's closest primitives (`TimeDeltaSensor`, `time.sleep()`) occupy executor slots throughout the wait and are not crash-durable.
+
 ---
 
 ## 4. Impact
