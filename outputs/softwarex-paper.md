@@ -142,23 +142,65 @@ for ENGINE in temporal conductor airflow; do
 done
 ```
 
-### 3.3 Observed results (illustrative, local single-node)
+### 3.3 Observed results (illustrative, local single-node — three resource configurations)
 
-The following results were obtained on a local development machine (Apple M-series, 36 GB host RAM, Colima VM: 6 vCPU / 12 GB) with Config 1 (baseline: 2 vCPU / 2 GB per engine service, 200 max concurrent workers):
+All results were obtained on a local development machine (Apple M-series, 36 GB host RAM, Colima Docker VM: 6 vCPU / 12 GB). Three resource configurations were tested sequentially per engine:
 
-| Workload | Temporal P50 (ms) | Conductor P50 (ms) | Airflow P50 (ms) |
-|---|---:|---:|---:|
-| low-latency | 1,658 | 10,937 | 19,992 |
-| high-throughput | 5,022 | 30,089 | OOM (Config 1) |
-| deep-sequential | 5,244 | 105,774 | 88,856 |
-| long-running | 5,339 | 13,562 | 24,485 |
-| retry-heavy | 1,388 | 11,377 | 24,816 |
-| timer-intensive | 10,318 | 61,081 | 115,713 |
-| failure-recovery | 31,177 | 41,414 | 89,690 |
+- **Config 1 (baseline):** 2 vCPU / 2 GB per engine service; 200 max concurrent workers
+- **Config 2 (2×):** 4 vCPU / 4 GB per engine service; 400 max concurrent workers
+- **Config 3 (4×):** 6 vCPU / 8 GB per engine service; 800 max concurrent workers
 
-These results illustrate the harness's ability to surface behavioral differences across engines on the same workload taxonomy. Temporal's gRPC-based pull model shows substantially lower orchestration overhead for short sequential and retry-heavy workflows. Conductor's HTTP polling model shows latency proportional to poll interval × step count, most visible in the deep-sequential workload (105 s P50 for 50 steps). Airflow's `LocalExecutor` fork model encounters memory limits at fan-out scale.
+**Temporal — P50 latency (ms):**
 
-Scaling CPU and memory limits (Config 2: 2×, Config 3: 4×) yields measurable improvements for CPU-bound workloads (Temporal low-latency: 1,658 ms → 554 ms P50 from Config 1 to Config 3), while structurally-bounded workloads like Conductor deep-sequential remain flat (105,774 ms → 105,303 ms across all configs), confirming that the bottleneck is sequential HTTP round-trips rather than compute resources.
+| Workload | Config 1 | Config 2 | Config 3 | Δ C1→C3 |
+|---|---:|---:|---:|---:|
+| low-latency | 1,658 | 615 | 554 | −67% |
+| high-throughput | 5,022 | 2,094 | 1,636 | −67% |
+| deep-sequential | 5,244 | 5,037 | 5,046 | −4% |
+| long-running | 5,339 | 5,448 | 5,236 | −2% |
+| retry-heavy | 1,388 | 1,362 | 1,444 | +4% |
+| timer-intensive | 10,318 | 10,714 | 10,346 | +0.3% |
+| failure-recovery | 31,177 | 30,740 | 30,593 | −2% |
+
+**Conductor — P50 latency (ms):**
+
+| Workload | Config 1 | Config 2 | Config 3 | Δ C1→C3 |
+|---|---:|---:|---:|---:|
+| low-latency | 10,937 | 10,781 | 10,660 | −3% |
+| high-throughput | 30,089 | 17,148 | 9,215 | −69% |
+| deep-sequential | 105,774 | 105,131 | 105,303 | −0.4% |
+| long-running | 13,562 | 15,648 | 14,460 | +7% |
+| retry-heavy | 11,377 | 12,741 | 12,785 | +12% |
+| timer-intensive | 61,081 | 23,944 | 31,126 | −49% |
+| failure-recovery | 41,414 | 42,000 | 43,138 | +4% |
+
+**Airflow — P50 latency (ms):**
+
+| Workload | Config 1 | Config 2 | Config 3 | Δ C1→C3 |
+|---|---:|---:|---:|---:|
+| low-latency | 19,992 | 10,147 | 10,272 | −49% |
+| high-throughput | OOM crash | 161,017 | degraded† | — |
+| deep-sequential | 88,856 | 64,122 | 64,665 | −27% |
+| long-running | 24,485 | 16,081 | 14,537 | −41% |
+| retry-heavy | 24,816 | 12,756 | 11,045 | −56% |
+| timer-intensive | 115,713 | 65,614 | 67,497 | −42% |
+| failure-recovery | 89,690 | 72,408 | 61,369 | −32% |
+
+† Config 3 Airflow high-throughput ran after 6 prior workloads in the same session; only 4/20 runs succeeded due to accumulated scheduler state. Re-run in an isolated session recommended.
+
+![Figure 1 — P50 Latency by Engine and Workload, Config 1 baseline](../figures/fig1_p50_latency_config1.png)
+
+![Figure 2 — Throughput (workflows/second) by Engine and Workload, Config 1](../figures/fig2_throughput_config1.png)
+
+![Figure 3 — P50 Latency Scaling Across Configs C1, C2, C3 per Engine](../figures/fig3_scaling_p50_configs.png)
+
+![Figure 4 — Success Rate Heatmap across Engine × Config × Workload](../figures/fig4_success_heatmap.png)
+
+![Figure 5 — Temporal P50/P95/P99 Latency Spread by Workload](../figures/fig5_temporal_latency_spread.png)
+
+![Figure 6 — Timer-Intensive Throughput Scaling Across Configs](../figures/fig6_timer_intensive_scaling.png)
+
+These results demonstrate the harness's ability to surface both resource-sensitive and structurally-bounded behaviors. Temporal scales cleanly with CPU for latency-sensitive workloads (low-latency: −67% P50 from C1→C3). Conductor's deep-sequential workload remains flat across all configs (105,774 ms → 105,303 ms), confirming the bottleneck is sequential HTTP poll round-trips, not compute. Airflow's high-throughput workload crashed the scheduler OOM in Config 1 (LocalExecutor subprocess fan-out exhausted memory) but completed at Config 2 with a 10 GB scheduler allocation.
 
 ---
 
