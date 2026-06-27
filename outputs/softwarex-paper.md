@@ -12,7 +12,7 @@ mht.nagpal@gmail.com
 |---|---|---|
 | C1 | Current code version | v1.0.0 |
 | C2 | Permanent link to code/repository | https://github.com/MohitNagpaldce/benchmark_engines |
-| C3 | Permanent link to reproducible capsule | https://doi.org/[TO BE ASSIGNED ON ZENODO] |
+| C3 | Permanent link to reproducible capsule | https://doi.org/10.5281/zenodo.2097859 |
 | C4 | Legal code license | GPL-3.0-only |
 | C5 | Code versioning system used | git |
 | C6 | Software code languages, tools, and services used | TypeScript 5, Node.js ≥ 22, Python 3.11, Docker Compose v2, PostgreSQL 16 |
